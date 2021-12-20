@@ -24,5 +24,18 @@
 
 """
 
+import operator
+
+OPERATORS = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+
+
 def rpn_calc(array):
-    pass
+    tmp_arr = []
+
+    for i, item in enumerate(array):
+        if isinstance(item, int):
+            tmp_arr.append(item)
+        else:
+            num_1, num_2 = tmp_arr.pop(), tmp_arr.pop()
+            tmp_arr.append(OPERATORS[item](num_2, num_1))
+    return tmp_arr.pop()
