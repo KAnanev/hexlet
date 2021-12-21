@@ -21,16 +21,39 @@ counter = count()
 
 def stringify(value, replacer=' ', spaces_count=1):
     result = ''
-    space = replacer * spaces_count
     if isinstance(value, dict):
-        result += ''
+        result += '{\n'
         for key, value in value.items():
             if isinstance(value, dict):
-                result += f'{space}{key}: {stringify(value, replacer = replacer, spaces_count= spaces_count + 1)}\n'
+                result += f'{replacer * spaces_count}{key}: {stringify(value, replacer=replacer, spaces_count=spaces_count + 1)}'
             else:
-                result += '{\n' + f'{space}{key}: {value}\n {space}' + '}'
+                result += f'{replacer * spaces_count}{key}: {value}\n'
+        result += '}'
 
-        return result
     else:
         result += str(value)
     return result
+
+
+nested = {
+    "string": "value",
+    "boolean": True,
+    "number": 5,
+    "dict": {
+        5: "number",
+        None: "None",
+        True: "boolean",
+        "value": "string",
+        "nested": {
+            "boolean": True,
+            "string": 'value',
+            "number": 5,
+            None: "None",
+        },
+    },
+}
+
+
+if __name__ == '__main__':
+    d = stringify(nested, '-')
+    print(d)

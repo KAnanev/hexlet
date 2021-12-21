@@ -58,13 +58,13 @@ nested_data = read(get_fixture_path('nested.txt')).rstrip().split('\n\n\n')
 
 
 @pytest.mark.parametrize("replacer,spases_count,case_index", cases)
-def test_plain(replacer, spases_count, case_index):
+def test_nested(replacer, spases_count, case_index):
     expected = nested_data[case_index]
     assert stringify(nested, replacer, spases_count) == expected
 
 
 @pytest.mark.parametrize("replacer,spases_count,case_index", cases)
-def test_nested(replacer, spases_count, case_index):
+def test_plain(replacer, spases_count, case_index):
     expected = plain_data[case_index]
     assert stringify(primitives, replacer, spases_count) == expected
 
